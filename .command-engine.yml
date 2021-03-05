@@ -1,0 +1,25 @@
+project_name: gopublic
+strict: true
+module:
+    base_module: gopublish
+    instance_cls: "<class 'gopublish.GopublishInstance'>"
+    instance_func: GopublishInstance
+    instance_args: []
+    instance_kwargs:
+        host: "0.0.0.0"
+        port: "9100"
+
+    ignore:
+        top_attrs:
+            - 'host'
+            - 'port'
+            - 'login'
+            - 'password'
+            - 'endpoints'
+            - '_get_endpoints'
+        funcs:
+            - get
+            - post
+
+documentation: |
+    Bla bla bla
