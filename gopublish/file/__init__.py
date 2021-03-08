@@ -78,7 +78,7 @@ class FileClient(Client):
             except Exception as error:
                 print('Error', error)
 
-            auth=(username, password)
+            auth = (username, password)
         else:
             body['username'] = username
 

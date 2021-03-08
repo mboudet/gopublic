@@ -65,4 +65,3 @@ def cli(ctx, url=None, api_key=None, admin=False, **kwds):
 
     # We don't want other users to look into this file
     os.chmod(config_path, 0o600)
-

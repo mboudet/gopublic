@@ -49,4 +49,3 @@ class GopublishInstance(object):
             return r.json()
         except requests.exceptions.RequestException:
             raise GopublishConnectionError("Cannot connect to {}:{}. Please check the connection.".format(self.host, self.port))
-

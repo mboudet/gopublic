@@ -63,4 +63,3 @@ class Client(object):
                 endpoint = endpoint.replace("<{}>".format(group), body.get(group))
 
         return "http://{}:{}{}".format(self.host, self.port, endpoint)
-

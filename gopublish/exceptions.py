@@ -21,4 +21,3 @@ class GopublishConnectionError(Exception):
 class GopublishNotImplementedError(Exception):
     """Raised when there are not endpoint associated with this function"""
     pass
-

@@ -57,7 +57,4 @@ def _get_instance(instance_name=None):
 def get_instance(instance_name=None):
     conf = _get_instance(instance_name=instance_name)
 
-    return GopublishInstance(host=conf['host'],
-                            port=conf['port'],
-                            )
-
+    return GopublishInstance(host=conf['host'], port=conf['port'])
