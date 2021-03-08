@@ -6,10 +6,10 @@ with open('requirements.txt') as f:
 setup(
     name="gopublic",
     version='0.0.1',
-    description="Go-publish CLI",
+    description="Gopublish CLI",
     author="Mateo Boudet",
     author_email="mateo.boudet@inrae.fr",
-    url="https://github.com/mboudet/gopublish_cli",
+    url="https://github.com/mboudet/gopublic",
     install_requires=requires,
     packages=find_packages(),
     license='MIT',

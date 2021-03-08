@@ -1,6 +1,6 @@
 # Gopublic
 
-[Gopublish](https://github.com/mboudet/go-publish) server.
+[Gopublish](https://github.com/mboudet/gopublish) server.
 
 ```bash
 # On first use you'll need to create a config file to connect to the server, just run:
