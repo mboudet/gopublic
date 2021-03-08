@@ -19,10 +19,11 @@ class Client(object):
     Base client class implementing methods to make queries to the server
     """
 
-    def __init__(self, host, port, endpoints):
+    def __init__(self, host, port, endpoints, gopublish_mode):
         self.host = host
         self.port = str(port)
         self.endpoints = endpoints
+        self.gopublish_mode = gopublish_mode
 
     def _api_call(self, call_type, endpoint_name, body={}, inline=False, auth=None):
 

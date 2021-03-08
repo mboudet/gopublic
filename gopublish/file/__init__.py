@@ -65,12 +65,21 @@ class FileClient(Client):
         :return: Dictionnary containing the response
         """
         body = {"path": path, "version": version, "contact": contact, "email": email}
+        auth = None
+        if email:
+            body['email'] = email
 
-        try:
-            password = getpass.getpass(prompt='Enter your GenOuest password ')
-        except Exception as error:
-            print('Error', error)
+        if contact:
+            body['contact'] = contact
 
-        auth=(username, password)
+        if self.gopublish_mode == "prod":
+            try:
+                password = getpass.getpass(prompt='Enter your GenOuest password ')
+            except Exception as error:
+                print('Error', error)
 
-        return self._api_call("post", "publish", body, auth=auth)['files']
+            auth=(username, password)
+        else:
+            body['username'] = username
+
+        return self._api_call("post", "publish_file", body, auth=auth)

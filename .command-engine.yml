@@ -7,16 +7,18 @@ module:
     instance_args: []
     instance_kwargs:
         host: "0.0.0.0"
-        port: "9100"
+        port: "80"
 
     ignore:
         top_attrs:
             - 'host'
             - 'port'
             - 'login'
-            - 'password'
             - 'endpoints'
+            - 'gopublish_version'
+            - 'gopublish_mode'
             - '_get_endpoints'
+            - '_get_status'
         funcs:
             - get
             - post
