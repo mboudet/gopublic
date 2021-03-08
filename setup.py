@@ -5,13 +5,14 @@ with open('requirements.txt') as f:
 
 setup(
     name="gopublic",
-    version='0.0.1',
+    version='0.0.2',
     description="Gopublish CLI",
     author="Mateo Boudet",
     author_email="mateo.boudet@inrae.fr",
     url="https://github.com/mboudet/gopublic",
     install_requires=requires,
     packages=find_packages(),
+    long_description_content_type="text/markdown",
     license='MIT',
     platforms="Posix; MacOS X; Windows",
     entry_points='''
