@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 
 import re
 
-from gopublish.exceptions import GopublishApiError, GopublishConnectionError, GopublishNotImplementedError
-
 from future import standard_library
+
+from gopublish.exceptions import GopublishApiError, GopublishConnectionError, GopublishNotImplementedError
 
 import requests
 

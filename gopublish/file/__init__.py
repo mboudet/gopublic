@@ -3,11 +3,11 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
-from gopublish.client import Client
+import getpass
 
 from future import standard_library
 
-import getpass
+from gopublish.client import Client
 
 standard_library.install_aliases()
 

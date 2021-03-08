@@ -3,10 +3,10 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
+from future import standard_library
+
 from gopublish.exceptions import GopublishConnectionError
 from gopublish.file import FileClient
-
-from future import standard_library
 
 import requests
 
