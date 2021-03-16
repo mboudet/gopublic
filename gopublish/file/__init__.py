@@ -5,9 +5,12 @@ from __future__ import unicode_literals
 
 import getpass
 
+import os
+
 from future import standard_library
 
 from gopublish.client import Client
+from gopublish.exceptions import GopublishTokenMissingError
 
 standard_library.install_aliases()
 
@@ -42,15 +45,12 @@ class FileClient(Client):
 
         return self._api_call("get", "search", body, inline=True)['files']
 
-    def publish(self, path, username, version=1, contact="", email=""):
+    def publish(self, path, version=1, contact="", email="", token=""):
         """
         Launch a publish task
 
         :type path: str
         :param path: Path to the file to be published
-
-        :type username: str
-        :param username: Username for the login
 
         :type version: int
         :param version: Version of the file to publish
@@ -60,6 +60,9 @@ class FileClient(Client):
 
         :type email: str
         :param email: Contact email for notification when publication is done
+
+        :type token: str
+        :param token: You Gopublish token.
 
         :rtype: dict
         :return: Dictionnary containing the response
@@ -72,14 +75,12 @@ class FileClient(Client):
         if contact:
             body['contact'] = contact
 
-        if self.gopublish_mode == "prod":
-            try:
-                password = getpass.getpass(prompt='Enter your GenOuest password ')
-            except Exception as error:
-                print('Error', error)
-
-            auth = (username, password)
+        if token:
+            body['token'] = token
         else:
-            body['username'] = username
+            if os.getenv("GOPUBLISH_TOKEN"):
+                body['token'] = os.getenv("GOPUBLISH_TOKEN")
+            else:
+                raise GopublishTokenMissingError("Missing token: either specify it with --token, or set it as GOPUBLISH_TOKEN in your environnment")
 
         return self._api_call("post", "publish_file", body, auth=auth)

@@ -36,7 +36,7 @@ def cli(ctx, url=None, api_key=None, admin=False, **kwds):
 
     while True:
         # Check environment
-        host = click.prompt("Gopublish server host")
+        host = click.prompt("Gopublish server host, including http://")
         port = click.prompt("Gopublish server port")
 
         info("Testing connection...")

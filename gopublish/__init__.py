@@ -15,7 +15,7 @@ standard_library.install_aliases()
 
 class GopublishInstance(object):
 
-    def __init__(self, host="localhost", port="9100", **kwargs):
+    def __init__(self, host="http://localhost", port="9100", **kwargs):
         self.host = host
         self.port = str(port)
 

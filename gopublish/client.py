@@ -30,11 +30,11 @@ class Client(object):
         url = self._format_url(call_type, endpoint_name, body)
 
         try:
-            if call_type == "get":
+            if call_type in ["get", "delete"]:
                 if inline:
                     r = requests.get(url, params=body, auth=auth)
                 else:
-                    r = requests.get(url, json=body, auth=auth)
+                    r = requests.get(url, auth=auth)
             elif call_type == "post":
                 r = requests.post(url, json=body, auth=auth)
 
@@ -55,11 +55,11 @@ class Client(object):
             raise GopublishNotImplementedError()
 
         # Fill parameters in the url
-        if call_type == "get":
+        if not inline and call_type in ["get", "delete"]:
             groups = re.findall(r'<(.*?)>', endpoint)
             for group in groups:
                 if group not in body:
                     raise GopublishApiError("Missing get parameter " + group)
                 endpoint = endpoint.replace("<{}>".format(group), body.get(group))
 
-        return "http://{}:{}{}".format(self.host, self.port, endpoint)
+        return "{}:{}{}".format(self.host, self.port, endpoint)
