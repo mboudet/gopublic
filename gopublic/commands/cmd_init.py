@@ -14,8 +14,7 @@ CONFIG_TEMPLATE = """## Gopublish's gopublic: Global Configuration File.
 # You can set the key __default to the name of a default instance
 __default: local
 local:
-    host: "%(host)s"
-    port: "%(port)s"
+    url: "%(url)s"
 """
 
 SUCCESS_MESSAGE = (
@@ -25,7 +24,7 @@ SUCCESS_MESSAGE = (
 
 @click.command("config_init")
 @pass_context
-def cli(ctx, url=None, api_key=None, admin=False, **kwds):
+def cli(ctx, url=None, admin=False, **kwds):
     """Help initialize global configuration (in home directory)
     """
 
@@ -36,12 +35,11 @@ def cli(ctx, url=None, api_key=None, admin=False, **kwds):
 
     while True:
         # Check environment
-        host = click.prompt("Gopublish server host, including http://")
-        port = click.prompt("Gopublish server port")
-
+        url = click.prompt("Gopublish server url, including http:// and the port if required")
+        url.rstrip().rstrip("/")
         info("Testing connection...")
         try:
-            GopublishInstance(host=host, port=port)
+            GopublishInstance(url=url)
             # We do a connection test during startup.
             info("Ok! Everything looks good.")
             break
@@ -58,8 +56,7 @@ def cli(ctx, url=None, api_key=None, admin=False, **kwds):
 
     with open(config_path, "w") as f:
         f.write(CONFIG_TEMPLATE % {
-            'host': host,
-            'port': port,
+            'url': url
         })
         info(SUCCESS_MESSAGE)
 

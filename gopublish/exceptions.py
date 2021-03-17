@@ -22,6 +22,7 @@ class GopublishNotImplementedError(Exception):
     """Raised when there are not endpoint associated with this function"""
     pass
 
+
 class GopublishTokenMissingError(Exception):
     """Raised when the gopublish token is missing"""
     pass

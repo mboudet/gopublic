@@ -7,8 +7,7 @@
 
 $ gopublic init
 Welcome to Gopublic
-Gopublish server host: localhost
-Gopublish server port: 80
+Gopublish server url, including http:// and the port if required: http://0.0.0.0:80
 Testing connection...
 Ok! Everything looks good.
 Ready to go! Type `gopublic` to get a list of commands you can execute.
@@ -66,9 +65,15 @@ $ gopublic file search package.json
         "version": 1
     }
 ]
+# Get a token for publishing
+$ gopublic token create myusername
+Enter your GenOuest password
+{
+    "token": "8be6204a-4424-457c-9cf8-0827e059bfea"
+}
 
 # Publish a file
-gopublic file publish '/repos/myrepo_copy/docker-compose-dev.yml' root
+gopublic file publish '/repos/myrepo_copy/docker-compose-dev.yml' --token 8be6204a-4424-457c-9cf8-0827e059bfea
 {
     "file_id": "46edab15-f482-4ec4-85a5-315d1045306c",
     "message": "File registering. It should be ready soon"

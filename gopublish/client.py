@@ -19,9 +19,8 @@ class Client(object):
     Base client class implementing methods to make queries to the server
     """
 
-    def __init__(self, host, port, endpoints, gopublish_mode):
-        self.host = host
-        self.port = str(port)
+    def __init__(self, url, endpoints, gopublish_mode):
+        self.url = url
         self.endpoints = endpoints
         self.gopublish_mode = gopublish_mode
 
@@ -46,7 +45,7 @@ class Client(object):
                 return r.json()
 
         except requests.exceptions.RequestException:
-            raise GopublishConnectionError("Cannot connect to {}:{}. Please check the connection.".format(self.host, self.port))
+            raise GopublishConnectionError("Cannot connect to {}. Please check the connection.".format(self.url))
 
     def _format_url(self, call_type, endpoint_name, body, inline=False):
 
@@ -62,4 +61,4 @@ class Client(object):
                     raise GopublishApiError("Missing get parameter " + group)
                 endpoint = endpoint.replace("<{}>".format(group), body.get(group))
 
-        return "{}:{}{}".format(self.host, self.port, endpoint)
+        return "{}{}".format(self.url, endpoint)

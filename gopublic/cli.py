@@ -89,7 +89,7 @@ class gopublicCLI(click.MultiCommand):
         # We pre-calculate this so it works more nicely within packaged
         # versions of gopublic. Please feel free to fix this?
 
-        commands = ['init', 'file']
+        commands = ['init', 'file', 'token']
         return commands
 
     def get_command(self, ctx, name):

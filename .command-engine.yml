@@ -6,13 +6,11 @@ module:
     instance_func: GopublishInstance
     instance_args: []
     instance_kwargs:
-        host: "0.0.0.0"
-        port: "80"
+        url: "http://0.0.0.0:80"
 
     ignore:
         top_attrs:
-            - 'host'
-            - 'port'
+            - 'url'
             - 'login'
             - 'endpoints'
             - 'gopublish_version'

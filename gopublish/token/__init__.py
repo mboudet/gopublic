@@ -17,7 +17,7 @@ class TokenClient(Client):
     Manipulate files managed by Gopublish
     """
 
-    def get(self, username):
+    def create(self, username):
         """
         Get token
 
@@ -25,7 +25,7 @@ class TokenClient(Client):
         :param username: Username
 
         :rtype: dict
-        :return: Dictionary containing the token
+        :return: Dictionnary containg the token
         """
 
         if self.gopublish_mode == "prod":
@@ -53,4 +53,3 @@ class TokenClient(Client):
         body = {"token": token}
 
         return self._api_call("delete", "revoke_token", body)
-
