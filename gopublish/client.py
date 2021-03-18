@@ -24,18 +24,18 @@ class Client(object):
         self.endpoints = endpoints
         self.gopublish_mode = gopublish_mode
 
-    def _api_call(self, call_type, endpoint_name, body={}, inline=False, auth=None):
+    def _api_call(self, call_type, endpoint_name, body={}, inline=False, headers=None):
 
         url = self._format_url(call_type, endpoint_name, body)
 
         try:
             if call_type in ["get", "delete"]:
                 if inline:
-                    r = requests.get(url, params=body, auth=auth)
+                    r = requests.get(url, params=body, headers=headers)
                 else:
-                    r = requests.get(url, auth=auth)
+                    r = requests.get(url, headers=headers)
             elif call_type == "post":
-                r = requests.post(url, json=body, auth=auth)
+                r = requests.post(url, json=body, headers=headers)
 
             if 400 <= r.status_code <= 499:
                 raise GopublishApiError("API call returned the following error: '{}'".format(r.json()['error']))

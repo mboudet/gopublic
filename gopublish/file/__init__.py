@@ -73,12 +73,12 @@ class FileClient(Client):
         if contact:
             body['contact'] = contact
 
-        if token:
-            body['token'] = token
-        else:
+        if not token:
             if os.getenv("GOPUBLISH_TOKEN"):
-                body['token'] = os.getenv("GOPUBLISH_TOKEN")
+                token = os.getenv("GOPUBLISH_TOKEN")
             else:
                 raise GopublishTokenMissingError("Missing token: either specify it with --token, or set it as GOPUBLISH_TOKEN in your environnment")
+        headers = {"Authorization": "Bearer " + token}
+
 
         return self._api_call("post", "publish_file", body, auth=auth)
