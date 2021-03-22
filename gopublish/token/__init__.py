@@ -39,17 +39,3 @@ class TokenClient(Client):
         body = {"username": username, "password": password}
 
         return self._api_call("post", "create_token", body)
-
-    def revoke(self, token):
-        """
-        Revoke a token
-
-        :type token: str
-        :param token: The token
-
-        :rtype: dict
-        :return: The API response
-        """
-        body = {"token": token}
-
-        return self._api_call("delete", "revoke_token", body)

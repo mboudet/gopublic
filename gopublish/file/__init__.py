@@ -66,7 +66,6 @@ class FileClient(Client):
         :return: Dictionnary containing the response
         """
         body = {"path": path, "version": version, "contact": contact, "email": email}
-        auth = None
         if email:
             body['email'] = email
 
@@ -80,5 +79,4 @@ class FileClient(Client):
                 raise GopublishTokenMissingError("Missing token: either specify it with --token, or set it as GOPUBLISH_TOKEN in your environnment")
         headers = {"Authorization": "Bearer " + token}
 
-
-        return self._api_call("post", "publish_file", body, auth=auth)
+        return self._api_call("post", "publish_file", body, headers=headers)
