@@ -18,30 +18,57 @@ class FileClient(Client):
     Manipulate files managed by Gopublish
     """
 
-    def list(self):
+    def list(self, limit=None, offset=None):
         """
         List files published in Gopublish
 
-        :rtype: list
-        :return: List of files
+        :type limit: int
+        :param limit: Limit the results numbers
+
+        :type offset: int
+        :param offset: Offset for listing the results (used with limit)
+
+        :rtype: dict
+        :return: Dict with files and total count
         """
 
         body = {}
-        return self._api_call("get", "list_files", body)['files']
 
-    def search(self, file_name):
+        if offset and not limit:
+            offset = None
+        if limit:
+            body['limit'] = limit
+        if offset:
+            body['offset'] = offset
+
+        return self._api_call("get", "list_files", body, inline=True)
+
+    def search(self, file_name, limit=None, offset=None):
         """
         Launch a pull task
 
         :type file_name: str
         :param file_name: Either a file name, or a file UID
 
-        :rtype: list
-        :return: List of files matching the search
+        :type limit: int
+        :param limit: Limit the results numbers
+
+        :type offset: int
+        :param offset: Offset for listing the results (used with limit)
+
+        :rtype: dict
+        :return: Dict with files and total count
         """
         body = {"file": file_name}
 
-        return self._api_call("get", "search", body, inline=True)['files']
+        if offset and not limit:
+            offset = None
+        if limit:
+            body['limit'] = limit
+        if offset:
+            body['offset'] = offset
+
+        return self._api_call("get", "search", body, inline=True)
 
     def publish(self, path, version=1, contact="", email="", token=""):
         """
