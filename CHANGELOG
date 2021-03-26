@@ -12,6 +12,7 @@ This changelog was started for release 0.0.5.
 ### Added
 
 - Added token implementation (JWT token)
+- Added limit and offset options for searching and listing
 
 ### Changed
 
