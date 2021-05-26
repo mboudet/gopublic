@@ -7,11 +7,13 @@ from future import standard_library
 
 standard_library.install_aliases()
 
+class GopublishParameterError(Exception):
+    """Raised when the API returns an error"""
+    pass
 
 class GopublishApiError(Exception):
     """Raised when the API returns an error"""
     pass
-
 
 class GopublishConnectionError(Exception):
     """Raised when the connection to the Gopublish server fails"""

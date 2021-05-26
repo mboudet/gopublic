@@ -16,17 +16,22 @@ standard_library.install_aliases()
 
 class GopublishInstance(object):
 
-    def __init__(self, url="http://localhost:80", **kwargs):
+    def __init__(self, url="http://localhost:80", user="", password="", **kwargs):
 
         url = url.rstrip().rstrip("/")
         self.url = url
+
+        if user and password:
+            self.auth = (user, password)
+        else:
+            self.auth = None
 
         self.gopublish_version, self.gopublish_mode = self._get_status()
 
         self.endpoints = self._get_endpoints()
 
         # Initialize Clients
-        args = (self.url, self.endpoints, self.gopublish_mode)
+        args = (self.url, self.endpoints, self.gopublish_mode, self.auth)
         self.file = FileClient(*args)
         self.token = TokenClient(*args)
 
@@ -36,7 +41,7 @@ class GopublishInstance(object):
     def _get_status(self):
 
         try:
-            r = requests.get("{}/api/status".format(self.url))
+            r = requests.get("{}/api/status".format(self.url), auth=self.auth)
             if not r.status_code == 200:
                 raise requests.exceptions.RequestException
             return (r.json()["version"], r.json()["mode"])
@@ -46,7 +51,7 @@ class GopublishInstance(object):
     def _get_endpoints(self):
 
         try:
-            r = requests.get("{}/api/endpoints".format(self.url))
+            r = requests.get("{}/api/endpoints".format(self.url), auth=self.auth)
             if not r.status_code == 200:
                 raise requests.exceptions.RequestException
             return r.json()

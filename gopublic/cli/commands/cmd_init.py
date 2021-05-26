@@ -17,6 +17,19 @@ local:
     url: "%(url)s"
 """
 
+CONFIG_AUTH = """## Gopublish's gopublic: Global Configuration File.
+# Each stanza should contain a single gopublish server to control.
+#
+# You can set the key __default to the name of a default instance
+__default: local
+local:
+    url: "%(url)s"
+    username: "%(username)s"
+    password: "%(password)s"
+"""
+
+
+
 SUCCESS_MESSAGE = (
     "Ready to go! Type `gopublic` to get a list of commands you can execute."
 )
@@ -37,9 +50,14 @@ def cli(ctx, url=None, admin=False, **kwds):
         # Check environment
         url = click.prompt("Gopublish server url, including http:// and the port if required")
         url.rstrip().rstrip("/")
+        username = ""
+        password = ""
+        if click.confirm("""Is your Gopublish instance running behind an authentication proxy?"""):
+            username = click.prompt("Username")
+            password = click.prompt("Password", hide_input=True)
         info("Testing connection...")
         try:
-            GopublishInstance(url=url)
+            GopublishInstance(url=url, username=username, password=password)
             # We do a connection test during startup.
             info("Ok! Everything looks good.")
             break
@@ -55,9 +73,17 @@ def cli(ctx, url=None, admin=False, **kwds):
         return -1
 
     with open(config_path, "w") as f:
-        f.write(CONFIG_TEMPLATE % {
-            'url': url
-        })
+        if username and password:
+            f.write(CONFIG_TEMPLATE_AUTH % {
+                'url': url,
+                'username': username,
+                'password': password
+            })
+        else:
+            f.write(CONFIG_TEMPLATE % {
+                'url': url
+            })
+
         info(SUCCESS_MESSAGE)
 
     # We don't want other users to look into this file

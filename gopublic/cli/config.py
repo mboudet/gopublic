@@ -57,4 +57,10 @@ def _get_instance(instance_name=None):
 def get_instance(instance_name=None):
     conf = _get_instance(instance_name=instance_name)
 
-    return GopublishInstance(url=conf['url'])
+    username = None
+    password = None
+    if 'username' in conf and 'password' in conf:
+        username = conf['username']
+        password = conf['password']
+
+    return GopublishInstance(url=conf['url'], username=username, password=password)

@@ -8,6 +8,7 @@ import getpass
 from future import standard_library
 
 from gopublic.golib.client import Client
+from gopublic.golib.exceptions import GopublishParameterError
 
 standard_library.install_aliases()
 
@@ -17,7 +18,7 @@ class TokenClient(Client):
     Manipulate files managed by Gopublish
     """
 
-    def create(self, username, password=""):
+    def create(self, username="", password=""):
         """
         Get token
 
@@ -32,11 +33,18 @@ class TokenClient(Client):
         """
 
         if self.gopublish_mode == "prod":
-            if not password:
-                try:
-                    password = getpass.getpass(prompt='Enter your GenOuest password ')
-                except Exception as error:
-                    print('Error', error)
+            if not username:
+                if not self.auth:
+                    raise GopublishParameterError("Username is required")
+                else:
+                    username = self.auth[0]
+                    password = self.auth[1]
+            else:
+                if not password:
+                    try:
+                        password = getpass.getpass(prompt='Enter your GenOuest password ')
+                    except Exception as error:
+                        print('Error', error)
         else:
             password = username
 
