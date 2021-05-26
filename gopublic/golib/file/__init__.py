@@ -7,8 +7,8 @@ import os
 
 from future import standard_library
 
-from gopublish.client import Client
-from gopublish.exceptions import GopublishTokenMissingError
+from gopublic.golib.client import Client
+from gopublic.golib.exceptions import GopublishTokenMissingError
 
 standard_library.install_aliases()
 

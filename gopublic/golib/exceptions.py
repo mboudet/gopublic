@@ -14,7 +14,7 @@ class GopublishApiError(Exception):
 
 
 class GopublishConnectionError(Exception):
-    """Raised when the connection to the Barricadr server fails"""
+    """Raised when the connection to the Gopublish server fails"""
     pass
 
 

@@ -7,7 +7,7 @@ import getpass
 
 from future import standard_library
 
-from gopublish.client import Client
+from gopublic.golib.client import Client
 
 standard_library.install_aliases()
 
@@ -17,7 +17,7 @@ class TokenClient(Client):
     Manipulate files managed by Gopublish
     """
 
-    def create(self, username):
+    def create(self, username, password=""):
         """
         Get token
 
@@ -29,10 +29,11 @@ class TokenClient(Client):
         """
 
         if self.gopublish_mode == "prod":
-            try:
-                password = getpass.getpass(prompt='Enter your GenOuest password ')
-            except Exception as error:
-                print('Error', error)
+            if not password:
+                try:
+                    password = getpass.getpass(prompt='Enter your GenOuest password ')
+                except Exception as error:
+                    print('Error', error)
         else:
             password = username
 

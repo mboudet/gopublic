@@ -5,7 +5,7 @@ with open('requirements.txt') as f:
 
 setup(
     name="gopublic",
-    version='0.0.5',
+    version='0.0.6',
     description="Gopublish CLI",
     author="Mateo Boudet",
     author_email="mateo.boudet@inrae.fr",
@@ -17,7 +17,7 @@ setup(
     platforms="Posix; MacOS X; Windows",
     entry_points='''
         [console_scripts]
-        gopublic=gopublic.cli:gopublic
+        gopublic=gopublic.cli.cli:gopublic
     ''',
     classifiers=[
         "Intended Audience :: Developers",

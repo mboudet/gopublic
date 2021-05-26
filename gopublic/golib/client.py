@@ -7,7 +7,7 @@ import re
 
 from future import standard_library
 
-from gopublish.exceptions import GopublishApiError, GopublishConnectionError, GopublishNotImplementedError
+from gopublic.golib.exceptions import GopublishApiError, GopublishConnectionError, GopublishNotImplementedError
 
 import requests
 
