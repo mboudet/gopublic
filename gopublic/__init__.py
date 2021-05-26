@@ -53,7 +53,7 @@ class GopublishInstance(object):
         except requests.exceptions.RequestException:
             raise GopublishConnectionError("Cannot connect to {}. Please check the connection.".format(self.url))
 
+
 __version__ = '0.0.6'
 
 PROJECT_NAME = "gopublic"
-
