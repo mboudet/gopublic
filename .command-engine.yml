@@ -1,8 +1,8 @@
 project_name: gopublic.cli
 strict: true
 module:
-    base_module: gopublish
-    instance_cls: "<class 'gopublish.GopublishInstance'>"
+    base_module: gopublic
+    instance_cls: "<class 'gopublic.GopublishInstance'>"
     instance_func: GopublishInstance
     instance_args: []
     instance_kwargs:

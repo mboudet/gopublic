@@ -1,7 +1,7 @@
 import click
-from gopublic.commands.file.list import cli as list
-from gopublic.commands.file.publish import cli as publish
-from gopublic.commands.file.search import cli as search
+from gopublic.cli.commands.file.list import cli as list
+from gopublic.cli.commands.file.publish import cli as publish
+from gopublic.cli.commands.file.search import cli as search
 
 
 @click.group()

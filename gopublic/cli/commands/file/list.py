@@ -1,6 +1,6 @@
 import click
-from gopublic.cli import pass_context, json_loads
-from gopublic.decorators import custom_exception, dict_output
+from gopublic.cli.cli import pass_context, json_loads
+from gopublic.cli.decorators import custom_exception, dict_output
 
 
 @click.command('list')

@@ -1,5 +1,5 @@
 import click
-from gopublic.commands.token.create import cli as create
+from gopublic.cli.commands.token.create import cli as create
 
 
 @click.group()

@@ -24,6 +24,9 @@ class TokenClient(Client):
         :type username: str
         :param username: Username
 
+        :type password: str
+        :param password: Optional password for library compatibility
+
         :rtype: dict
         :return: Dictionnary containg the token
         """
