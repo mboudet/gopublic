@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import os
 
-from gopublish import GopublishInstance
+from gopublic import GopublishInstance
 
 import yaml
 

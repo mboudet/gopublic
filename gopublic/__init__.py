@@ -16,13 +16,13 @@ standard_library.install_aliases()
 
 class GopublishInstance(object):
 
-    def __init__(self, url="http://localhost:80", user="", password="", **kwargs):
+    def __init__(self, url="http://localhost:80", username="", password="", **kwargs):
 
         url = url.rstrip().rstrip("/")
         self.url = url
 
-        if user and password:
-            self.auth = (user, password)
+        if username and password:
+            self.auth = (username, password)
         else:
             self.auth = None
 

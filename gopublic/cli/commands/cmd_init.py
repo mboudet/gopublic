@@ -3,10 +3,10 @@ import os
 
 import click
 
-from gopublish import GopublishInstance
-from gopublic.cli import pass_context
-from gopublic import config
-from gopublic.io import warn, info
+from gopublic import GopublishInstance
+from gopublic.cli.cli import pass_context
+from gopublic.cli import config
+from gopublic.cli.io import warn, info
 
 CONFIG_TEMPLATE = """## Gopublish's gopublic: Global Configuration File.
 # Each stanza should contain a single gopublish server to control.
@@ -74,7 +74,7 @@ def cli(ctx, url=None, admin=False, **kwds):
 
     with open(config_path, "w") as f:
         if username and password:
-            f.write(CONFIG_TEMPLATE_AUTH % {
+            f.write(CONFIG_AUTH % {
                 'url': url,
                 'username': username,
                 'password': password

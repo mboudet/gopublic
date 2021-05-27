@@ -73,9 +73,9 @@ def name_to_command(parent, name):
             name = name.encode('ascii', 'replace')
 
         if parent:
-            mod_name = 'gopublic.commands.%s.%s' % (parent, name)
+            mod_name = 'gopublic.cli.commands.%s.%s' % (parent, name)
         else:
-            mod_name = 'gopublic.commands.cmd_' + name
+            mod_name = 'gopublic.cli.commands.cmd_' + name
         mod = __import__(mod_name, None, None, ['cli'])
     except ImportError as e:
         error("Problem loading command %s, exception %s" % (name, e))
