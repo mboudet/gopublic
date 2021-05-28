@@ -76,8 +76,8 @@ def cli(ctx, url=None, admin=False, **kwds):
         if username and password:
             f.write(CONFIG_AUTH % {
                 'url': url,
-                'proxy_username': username,
-                'proxy_password': password
+                'username': username,
+                'password': password
             })
         else:
             f.write(CONFIG_TEMPLATE % {
