@@ -59,8 +59,8 @@ def get_instance(instance_name=None):
 
     username = None
     password = None
-    if 'username' in conf and 'password' in conf:
-        username = conf['username']
-        password = conf['password']
+    if 'proxy_username' in conf and 'proxy_password' in conf:
+        username = conf['proxy_username']
+        password = conf['proxy_password']
 
     return GopublishInstance(url=conf['url'], proxy_username=username, proxy_password=password)

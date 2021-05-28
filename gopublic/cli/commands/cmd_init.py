@@ -24,8 +24,8 @@ CONFIG_AUTH = """## Gopublish's gopublic: Global Configuration File.
 __default: local
 local:
     url: "%(url)s"
-    username: "%(username)s"
-    password: "%(password)s"
+    proxy_username: "%(username)s"
+    proxy_password: "%(password)s"
 """
 
 
@@ -76,8 +76,8 @@ def cli(ctx, url=None, admin=False, **kwds):
         if username and password:
             f.write(CONFIG_AUTH % {
                 'url': url,
-                'username': username,
-                'password': password
+                'proxy_username': username,
+                'proxy_password': password
             })
         else:
             f.write(CONFIG_TEMPLATE % {
