@@ -104,6 +104,6 @@ class FileClient(Client):
                 token = os.getenv("GOPUBLISH_TOKEN")
             else:
                 raise GopublishTokenMissingError("Missing token: either specify it with --token, or set it as GOPUBLISH_TOKEN in your environnment")
-        headers = {"Authorization": "Bearer " + token}
+        headers = {"X-Auth-Token": "Bearer " + token}
 
         return self._api_call("post", "publish_file", body, headers=headers)
