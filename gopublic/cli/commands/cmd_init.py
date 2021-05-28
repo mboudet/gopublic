@@ -57,7 +57,7 @@ def cli(ctx, url=None, admin=False, **kwds):
             password = click.prompt("Password", hide_input=True)
         info("Testing connection...")
         try:
-            GopublishInstance(url=url, username=username, password=password)
+            GopublishInstance(url=url, proxy_username=username, proxy_password=password)
             # We do a connection test during startup.
             info("Ok! Everything looks good.")
             break
