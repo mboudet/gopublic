@@ -142,7 +142,6 @@ class FileClient(Client):
 
         return self._api_call("post", "publish_file", body, headers=headers)
 
-
     def tag(self, file_id, tags="", token=""):
         """
         Add one or more tags to a file
