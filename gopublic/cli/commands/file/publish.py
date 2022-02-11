@@ -6,11 +6,14 @@ from gopublic.cli.decorators import custom_exception, dict_output
 @click.command('publish')
 @click.argument("path", type=str)
 @click.option(
-    "--version",
-    help="Version of the file to publish",
-    default="1",
-    show_default=True,
-    type=int
+    "--tags",
+    help="Comma-separated tags",
+    type=str
+)
+@click.option(
+    "--linked_to",
+    help="id of the original file this file is a version of",
+    type=str
 )
 @click.option(
     "--contact",
@@ -24,17 +27,17 @@ from gopublic.cli.decorators import custom_exception, dict_output
 )
 @click.option(
     "--token",
-    help="You Gopublish token.",
+    help="Your Gopublish token.",
     type=str
 )
 @pass_context
 @custom_exception
 @dict_output
-def cli(ctx, path, version=1, contact="", email="", token=""):
+def cli(ctx, path, tags="", linked_to="", contact="", email="", token=""):
     """Launch a publish task
 
 Output:
 
     Dictionnary containing the response
     """
-    return ctx.gi.file.publish(path, version=version, contact=contact, email=email, token=token)
+    return ctx.gi.file.publish(path, tags=tags, linked_to=linked_to, contact=contact, email=email, token=token)

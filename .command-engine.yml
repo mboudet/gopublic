@@ -13,6 +13,7 @@ module:
             - 'url'
             - 'login'
             - 'endpoints'
+            - 'auth'
             - 'gopublish_version'
             - 'gopublish_mode'
             - '_get_endpoints'

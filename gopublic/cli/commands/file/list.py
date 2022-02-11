@@ -5,6 +5,11 @@ from gopublic.cli.decorators import custom_exception, dict_output
 
 @click.command('list')
 @click.option(
+    "--tags",
+    help="Comma-separated tags",
+    type=str
+)
+@click.option(
     "--limit",
     help="Limit the results numbers",
     type=int
@@ -17,11 +22,11 @@ from gopublic.cli.decorators import custom_exception, dict_output
 @pass_context
 @custom_exception
 @dict_output
-def cli(ctx, limit="", offset=""):
+def cli(ctx, tags="", limit="", offset=""):
     """List files published in Gopublish
 
 Output:
 
     Dict with files and total count
     """
-    return ctx.gi.file.list(limit=limit, offset=offset)
+    return ctx.gi.file.list(tags=tags, limit=limit, offset=offset)

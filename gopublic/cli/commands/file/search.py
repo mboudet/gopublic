@@ -4,7 +4,16 @@ from gopublic.cli.decorators import custom_exception, dict_output
 
 
 @click.command('search')
-@click.argument("file_name", type=str)
+@click.option(
+    "--query",
+    help="Either a search term, or a file UID",
+    type=str
+)
+@click.option(
+    "--tags",
+    help="Comma-separated tags",
+    type=str
+)
 @click.option(
     "--limit",
     help="Limit the results numbers",
@@ -18,11 +27,11 @@ from gopublic.cli.decorators import custom_exception, dict_output
 @pass_context
 @custom_exception
 @dict_output
-def cli(ctx, file_name, limit="", offset=""):
+def cli(ctx, query="", tags="", limit="", offset=""):
     """Launch a pull task
 
 Output:
 
     Dict with files and total count
     """
-    return ctx.gi.file.search(file_name, limit=limit, offset=offset)
+    return ctx.gi.file.search(query=query, tags=tags, limit=limit, offset=offset)

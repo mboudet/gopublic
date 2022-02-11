@@ -50,12 +50,12 @@ class FileClient(Client):
 
         return self._api_call("get", "list_files", body, inline=True)
 
-    def search(self, file_name, tags="", limit=None, offset=None):
+    def search(self, query="", tags="", limit=None, offset=None):
         """
         Launch a pull task
 
-        :type file_name: str
-        :param file_name: Either a file name, or a file UID
+        :type query: str
+        :param query: Either a search term, or a file UID
 
         :type tags: str
         :param tags: Comma-separated tags
@@ -69,7 +69,10 @@ class FileClient(Client):
         :rtype: dict
         :return: Dict with files and total count
         """
-        body = {"file": file_name}
+        body = {}
+
+        if query:
+            body['file'] = query
 
         tags = self._parse_input_values(tags, "Tags")
 

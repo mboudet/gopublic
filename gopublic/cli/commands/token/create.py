@@ -10,14 +10,19 @@ from gopublic.cli.decorators import custom_exception, dict_output
     help="Optional password for library compatibility",
     type=str
 )
+@click.option(
+    "--api_key",
+    help="Admin api key",
+    type=str
+)
 @pass_context
 @custom_exception
 @dict_output
-def cli(ctx, username, password=""):
+def cli(ctx, username, password="", api_key=""):
     """Get token
 
 Output:
 
     Dictionnary containg the token
     """
-    return ctx.gi.token.create(username, password=password)
+    return ctx.gi.token.create(username, password=password, api_key=api_key)
