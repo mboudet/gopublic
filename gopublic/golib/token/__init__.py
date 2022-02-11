@@ -18,7 +18,7 @@ class TokenClient(Client):
     Manipulate files managed by Gopublish
     """
 
-    def create(self, username="", password=""):
+    def create(self, username, password="", api_key=""):
         """
         Get token
 
@@ -28,26 +28,24 @@ class TokenClient(Client):
         :type password: str
         :param password: Optional password for library compatibility
 
+        :type api_key: str
+        :param api_key: Admin api key
+
         :rtype: dict
         :return: Dictionnary containg the token
         """
 
-        if self.gopublish_mode == "prod":
-            if not username:
-                if not self.auth:
-                    raise GopublishParameterError("Username is required")
-                else:
-                    username = self.auth[0]
-                    password = self.auth[1]
-            else:
-                if not password:
-                    try:
-                        password = getpass.getpass(prompt='Enter your GenOuest password ')
-                    except Exception as error:
-                        print('Error', error)
-        else:
-            password = username
+        body = {"username": username}
 
-        body = {"username": username, "password": password}
+        if self.gopublish_mode == "prod":
+            if api_key:
+                body['api_key'] = api_key
+            elif not password:
+                try:
+                    body["password"] = getpass.getpass(prompt='Enter your GenOuest password ')
+                except Exception as e:
+                    raise GopublishParameterError(str(e))
+        else:
+            body["password"] = username
 
         return self._api_call("post", "create_token", body)

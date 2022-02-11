@@ -18,9 +18,12 @@ class FileClient(Client):
     Manipulate files managed by Gopublish
     """
 
-    def list(self, limit=None, offset=None):
+    def list(self, tags="", limit=None, offset=None):
         """
         List files published in Gopublish
+
+        :type tags: str
+        :param tags: Comma-separated tags
 
         :type limit: int
         :param limit: Limit the results numbers
@@ -34,6 +37,10 @@ class FileClient(Client):
 
         body = {}
 
+        tags = self._parse_input_values(tags, "Tags")
+        if tags:
+            body['tags'] = tags
+
         if offset and not limit:
             offset = None
         if limit:
@@ -43,12 +50,15 @@ class FileClient(Client):
 
         return self._api_call("get", "list_files", body, inline=True)
 
-    def search(self, file_name, limit=None, offset=None):
+    def search(self, file_name, tags="", limit=None, offset=None):
         """
         Launch a pull task
 
         :type file_name: str
         :param file_name: Either a file name, or a file UID
+
+        :type tags: str
+        :param tags: Comma-separated tags
 
         :type limit: int
         :param limit: Limit the results numbers
@@ -61,6 +71,8 @@ class FileClient(Client):
         """
         body = {"file": file_name}
 
+        tags = self._parse_input_values(tags, "Tags")
+
         if offset and not limit:
             offset = None
         if limit:
@@ -68,17 +80,23 @@ class FileClient(Client):
         if offset:
             body['offset'] = offset
 
+        if tags:
+            body['tags'] = tags
+
         return self._api_call("get", "search", body, inline=True)
 
-    def publish(self, path, version=1, contact="", email="", token=""):
+    def publish(self, path, tags="", linked_to="", contact="", email="", token=""):
         """
         Launch a publish task
 
         :type path: str
         :param path: Path to the file to be published
 
-        :type version: int
-        :param version: Version of the file to publish
+        :type tags: str
+        :param tags: Comma-separated tags
+
+        :type linked_to: str
+        :param linked_to: id of the original file this file is a version of
 
         :type contact: str
         :param contact: Contact email for this file
@@ -87,17 +105,25 @@ class FileClient(Client):
         :param email: Contact email for notification when publication is done
 
         :type token: str
-        :param token: You Gopublish token.
+        :param token: Your Gopublish token.
 
         :rtype: dict
         :return: Dictionnary containing the response
         """
-        body = {"path": path, "version": version, "contact": contact, "email": email}
+
+        body = {"path": path}
         if email:
             body['email'] = email
 
         if contact:
             body['contact'] = contact
+
+        tags = self._parse_input_values(tags, "Tags")
+        if tags:
+            body['tags'] = tags
+
+        if linked_to:
+            body['linked_to'] = linked_to
 
         if not token:
             if os.getenv("GOPUBLISH_TOKEN"):

@@ -7,7 +7,7 @@ import re
 
 from future import standard_library
 
-from gopublic.golib.exceptions import GopublishApiError, GopublishConnectionError, GopublishNotImplementedError
+from gopublic.golib.exceptions import GopublishApiError, GopublishConnectionError, GopublishNotImplementedError, GopublishParameterError
 
 import requests
 
@@ -63,3 +63,13 @@ class Client(object):
                 endpoint = endpoint.replace("<{}>".format(group), body.get(group))
 
         return "{}{}".format(self.url, endpoint)
+
+    def _parse_input_values(self, val, val_name):
+        if not val:
+            return []
+        if isinstance(val, list):
+            return val
+        elif isinstance(val, str):
+            return [data.strip() for data in val.split(",")]
+        else:
+            raise GopublishParameterError("{} must either be a list or a comma-separated string".format(val_name))

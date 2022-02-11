@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This changelog was started for release 0.0.5.
 
+## Unreleased
+
+### Added
+
+- Support for API key for admins
+- Tag management for publishing, listing, searching
+- 'Linked to' management for versioning
+
+
 ## [0.0.5] - 2021-03-22
 
 ### Added
@@ -16,4 +25,4 @@ This changelog was started for release 0.0.5.
 
 ### Changed
 
-- Changed config (from host + port to url) 
+- Changed config (from host + port to url)
