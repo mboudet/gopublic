@@ -30,14 +30,21 @@ from gopublic.cli.decorators import custom_exception, dict_output
     help="Your Gopublish token.",
     type=str
 )
+@click.option(
+    "--inherit_tags",
+    help="Inherit linked file tags. Default to True",
+    default="True",
+    show_default=True,
+    is_flag=True
+)
 @pass_context
 @custom_exception
 @dict_output
-def cli(ctx, path, tags="", linked_to="", contact="", email="", token=""):
+def cli(ctx, path, tags="", linked_to="", contact="", email="", token="", inherit_tags=True):
     """Launch a publish task
 
 Output:
 
     Dictionnary containing the response
     """
-    return ctx.gi.file.publish(path, tags=tags, linked_to=linked_to, contact=contact, email=email, token=token)
+    return ctx.gi.file.publish(path, tags=tags, linked_to=linked_to, contact=contact, email=email, token=token, inherit_tags=inherit_tags)

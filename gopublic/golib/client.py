@@ -25,18 +25,17 @@ class Client(object):
         self.gopublish_mode = gopublish_mode
         self.auth = auth
 
-    def _api_call(self, call_type, endpoint_name, body={}, inline=False, headers=None):
+    def _api_call(self, call_type, endpoint_name, body={}, headers=None):
 
-        url = self._format_url(call_type, endpoint_name, body)
+        url, body = self._format_url(call_type, endpoint_name, body)
 
         try:
             if call_type in ["get", "delete"]:
-                if inline:
-                    r = requests.get(url, params=body, headers=headers, auth=self.auth)
-                else:
-                    r = requests.get(url, headers=headers, auth=self.auth)
+                r = requests.get(url, params=body, headers=headers, auth=self.auth)
             elif call_type == "post":
                 r = requests.post(url, json=body, headers=headers, auth=self.auth)
+            elif call_type == "put":
+                r = requests.put(url, json=body, headers=headers, auth=self.auth)
 
             if 400 <= r.status_code <= 499:
                 raise GopublishApiError("API call returned the following error: '{}'".format(r.json()['error']))
@@ -48,21 +47,21 @@ class Client(object):
         except requests.exceptions.RequestException:
             raise GopublishConnectionError("Cannot connect to {}. Please check the connection.".format(self.url))
 
-    def _format_url(self, call_type, endpoint_name, body, inline=False):
+    def _format_url(self, call_type, endpoint_name, body):
 
         endpoint = self.endpoints.get(endpoint_name)
         if not endpoint:
             raise GopublishNotImplementedError()
 
         # Fill parameters in the url
-        if not inline and call_type in ["get", "delete"]:
-            groups = re.findall(r'<(.*?)>', endpoint)
-            for group in groups:
-                if group not in body:
-                    raise GopublishApiError("Missing get parameter " + group)
-                endpoint = endpoint.replace("<{}>".format(group), body.get(group))
+        groups = re.findall(r'<(.*?)>', endpoint)
+        for group in groups:
+            if group not in body:
+                raise GopublishApiError("Missing get parameter " + group)
+            endpoint = endpoint.replace("<{}>".format(group), body.get(group))
+            body.pop(group)
 
-        return "{}{}".format(self.url, endpoint)
+        return "{}{}".format(self.url, endpoint), body
 
     def _parse_input_values(self, val, val_name):
         if not val:
