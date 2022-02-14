@@ -156,7 +156,7 @@ class FileClient(Client):
         :param token: Your Gopublish token.
 
         :rtype: dict
-        :return: Dict with files and total count
+        :return: Dict with file state
         """
 
         body = {'file_id': file_id}
@@ -189,7 +189,7 @@ class FileClient(Client):
         :param token: Your Gopublish token.
 
         :rtype: dict
-        :return: Dict with files and total count
+        :return: Dict with file state
         """
 
         body = {'file_id': file_id}
@@ -219,7 +219,7 @@ class FileClient(Client):
         :param token: Your Gopublish token.
 
         :rtype: dict
-        :return: Dict with files and total count
+        :return: Dictionnary containing the response
         """
 
         body = {'file_id': file_id}
@@ -231,7 +231,7 @@ class FileClient(Client):
                 raise GopublishTokenMissingError("Missing token: either specify it with --token, or set it as GOPUBLISH_TOKEN in your environnment")
         headers = {"X-Auth-Token": "Bearer " + token}
 
-        return self._api_call("delete", "unpublish_files", body=body, headers=headers)
+        return self._api_call("delete", "unpublish_file", body=body, headers=headers)
 
     def delete(self, file_id, token=""):
         """
@@ -244,7 +244,7 @@ class FileClient(Client):
         :param token: Your Gopublish token.
 
         :rtype: dict
-        :return: Dict with files and total count
+        :return: Dictionnary containing the response
         """
 
         body = {'file_id': file_id}
@@ -256,4 +256,4 @@ class FileClient(Client):
                 raise GopublishTokenMissingError("Missing token: either specify it with --token, or set it as GOPUBLISH_TOKEN in your environnment")
         headers = {"X-Auth-Token": "Bearer " + token}
 
-        return self._api_call("delete", "delete_files", body=body, headers=headers)
+        return self._api_call("delete", "delete_file", body=body, headers=headers)

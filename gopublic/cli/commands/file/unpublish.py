@@ -18,6 +18,6 @@ def cli(ctx, file_id, token=""):
 
 Output:
 
-    Dict with files and total count
+    Dictionnary containing the response
     """
     return ctx.gi.file.unpublish(file_id, token=token)

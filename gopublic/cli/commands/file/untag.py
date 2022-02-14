@@ -23,6 +23,6 @@ def cli(ctx, file_id, tags="", token=""):
 
 Output:
 
-    Dict with files and total count
+    Dict with file state
     """
     return ctx.gi.file.untag(file_id, tags=tags, token=token)

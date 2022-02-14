@@ -30,15 +30,21 @@ class Client(object):
         url, body = self._format_url(call_type, endpoint_name, body)
 
         try:
-            if call_type in ["get", "delete"]:
+            if call_type == "get":
                 r = requests.get(url, params=body, headers=headers, auth=self.auth)
+            elif call_type == "delete":
+                r = requests.delete(url, params=body, headers=headers, auth=self.auth)
             elif call_type == "post":
                 r = requests.post(url, json=body, headers=headers, auth=self.auth)
             elif call_type == "put":
                 r = requests.put(url, json=body, headers=headers, auth=self.auth)
 
             if 400 <= r.status_code <= 499:
-                raise GopublishApiError("API call returned the following error: '{}'".format(r.json()['error']))
+                try:
+                    data = r.json()
+                    raise GopublishApiError("API call returned the following error: '{}'".format(data.get('error', "")))
+                except json.decoder.JSONDecodeError:
+                    raise GopublishApiError("API call returned the following error code: '{}'".format(r.status_code))
             elif r.status_code == 502:
                 raise GopublishApiError("Unknown server error")
             else:
