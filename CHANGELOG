@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This changelog was started for release 0.0.5.
 
-## Unreleased
+## [0.0.7] - 2021-02-16
+
+### Added
+
+- View function
+
+## [0.0.6] - 2021-02-15
 
 ### Added
 

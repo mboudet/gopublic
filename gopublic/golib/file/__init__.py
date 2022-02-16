@@ -18,6 +18,21 @@ class FileClient(Client):
     Manipulate files managed by Gopublish
     """
 
+    def view(self, file_id):
+        """
+        Show a file
+
+        :type file_id: str
+        :param file_id: File id
+
+        :rtype: dict
+        :return: Dict with file info
+        """
+
+        body = {'file_id': file_id}
+
+        return self._api_call("get", "view_file", body)['file']
+
     def list(self, tags="", limit=None, offset=None):
         """
         List files published in Gopublish

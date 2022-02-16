@@ -6,6 +6,7 @@ from gopublic.cli.commands.file.search import cli as search
 from gopublic.cli.commands.file.tag import cli as tag
 from gopublic.cli.commands.file.unpublish import cli as unpublish
 from gopublic.cli.commands.file.untag import cli as untag
+from gopublic.cli.commands.file.view import cli as view
 
 
 @click.group()
@@ -23,3 +24,4 @@ cli.add_command(search)
 cli.add_command(tag)
 cli.add_command(unpublish)
 cli.add_command(untag)
+cli.add_command(view)
